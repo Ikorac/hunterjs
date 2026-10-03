@@ -6,17 +6,18 @@
 
 <!-- Credit to @ChoViolin for any functions I used -->
 
+<!-- go here and paste the code in when it eventually does not render https://www.w3schools.com/html/tryit.asp?filename=tryhtml_editor
+-->
+
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Hunter.js Demo</title>
+        <title>Hunter.js</title>
 		<!-- Import babylon and cannon.js -->
         <script src = 'https://cdn.jsdelivr.net/npm/babylonjs@6.23.0/babylon.min.js'></script>
         <script src = "https://cdn.jsdelivr.net/npm/cannon@0.6.2/build/cannon.min.js"></script>
         <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script>
         
-        
-    
     </head>
 	<!-- Blocks out scroll bar and adjusts screen size -->
     <style>
@@ -107,6 +108,9 @@
 //helps with the lag
 window.addEventListener('DOMContentLoaded', function(){
 const canvas = document.getElementById("renderCanvas");
+canvas.addEventListener("wheel", function (e) {
+	e.preventDefault()
+});
 const engine = new BABYLON.Engine(canvas, true, {
 	stencil: false,
 	lowQuality: true,
