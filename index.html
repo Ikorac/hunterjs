@@ -6,6 +6,9 @@
 
 <!-- Credit to @ChoViolin for any functions I used -->
 
+<!-- go here and paste the code in when it eventually does not render https://www.w3schools.com/html/tryit.asp?filename=tryhtml_editor
+-->
+
 <html>
     <head>
         <meta charset="utf-8">
@@ -390,7 +393,7 @@ function run(){
 		//can he jump
 		canJump = !!(hit && hit.hit);
 		
-		if (e.code === "Space" && canJump){
+		if (keys[" "] && canJump){
 			player.applyImpulse(new BABYLON.Vector3(0, 20, 0), player.getAbsolutePosition());
 		}
 		
