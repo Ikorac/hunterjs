@@ -6,12 +6,11 @@
 
 <!-- Credit to @ChoViolin for any functions I used -->
 
-
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Hunter.js</title>
-		<!-- Import babylon, proccessing.js and cannon.js -->
+        <title>Hunter.js Demo</title>
+		<!-- Import babylon, processing.js and cannon.js -->
         <script src = 'https://cdn.jsdelivr.net/npm/babylonjs@6.23.0/babylon.min.js'></script>
         <script src = "https://cdn.jsdelivr.net/npm/cannon@0.6.2/build/cannon.min.js"></script>
         <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script>
@@ -228,7 +227,16 @@ function run(){
 		Obj.rotation = new BABYLON.Vector3(obj.xRot, obj.yRot, obj.zRot);
 		
 		if(obj.physics) {
-			Obj.physicsImpostor = new BABYLON.PhysicsImpostor(Obj, BABYLON.PhysicsImpostor.BoxImpostor, obj, scene);
+		    switch(obj.type) {
+		    	case "cube":
+		    	    Obj.physicsImpostor = new BABYLON.PhysicsImpostor(Obj, BABYLON.PhysicsImpostor.BoxImpostor, obj, scene);
+		    	   break;
+		    	case "cylinder":
+		    	    Obj.physicsImpostor = new BABYLON.PhysicsImpostor(Obj, BABYLON.PhysicsImpostor.CylinderImpostor, obj, scene);
+		    	break;
+		    	case "sphere":
+		    	    Obj.physicsImpostor = new BABYLON.PhysicsImpostor(Obj, BABYLON.PhysicsImpostor.SphereImpostor, obj, scene);
+		    }
 		}
 		if(obj.sleep) {
 			Obj.sleep();
