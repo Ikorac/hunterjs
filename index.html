@@ -144,7 +144,7 @@ function run(){
 	scene.enablePhysics(gravityVector, new BABYLON.CannonJSPlugin());
 
 	//for key inputs
-	var keys = {};
+	let keys = {};
 	window.addEventListener('keydown', function(e) {
 		keys[e.key] = true;
 	});
@@ -193,7 +193,6 @@ function run(){
 			physics: config.physics || false,
 			type: config.type || "cube",
 			material: config.material || "standard",
-			d: config.d || 1,
 			seg: config.seg || 10,
 			dt: config.dt || 1,
 			db: config.db || 1,
@@ -274,7 +273,7 @@ function run(){
 	
 	let player = new3D({clr: [255, 147, 0], physics: true, mass: 1, resitution: 0,});
 	
-	var plr = {
+	let plr = {
 		x: player.position.x,
 		y: player.position.y,
 		z: player.position.z,
@@ -314,10 +313,10 @@ function run(){
 	new3D({x: 0, y: -4, z: 0, physics: true, mass: 0, type: "cube", w: 15, h: 0.8, d: 15, clr: [100, 100, 100], message: "Welcome! WASD to move, Sapce to jump",});
 	
     //Cube with texture
-    var x = 0;
+    let x = 0;
     let animation = new3D({x: 2, y: 2, z: -3, physics: true, mass: 0, w: 3, h: 3, d: 3});
     const dt2 = new PJSTexture("red-texture", {width: 400, height: 400}, scene);
-	var texture2 = dt2.createTexture(function(p) {
+	let texture2 = dt2.createTexture(function(p) {
 	    p.background(255, 0, 0);
 	    p.fill(255, 255, 255);
 	    p.strokeWeight(10);
@@ -330,7 +329,7 @@ function run(){
 	    p.rect(0, 0, 200, 200);
 	    p.popMatrix();
 	});
-    var material = new BABYLON.StandardMaterial("mat", scene);
+    let material = new BABYLON.StandardMaterial("mat", scene);
 	material.diffuseTexture = texture2;
 	material.diffuseTexture.uScale = 1;
 	material.diffuseTexture.vScale = 1;
@@ -341,7 +340,7 @@ function run(){
     //Fireball logo
     let fire = new3D({x: -2, y: 1, z: 3, type: "sphere", physics: true, h: 0.2, xRot: 90 * 180 / Math.PI, d: 5});
     
-    var fireball = new BABYLON.StandardMaterial("fire", scene);
+    let fireball = new BABYLON.StandardMaterial("fire", scene);
     fireball.diffuseTexture = new BABYLON.Texture("https://upload.wikimedia.org/wikipedia/en/a/a2/Explodingball.jpg?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=thumbnail_unscaled&_=20060221185633", scene);
      fire.material = fireball;
     
@@ -350,7 +349,7 @@ function run(){
 	scene.registerAfterRender(function() {			
 			
 		//damping
-		var vel = player.physicsImpostor.getLinearVelocity();
+		let vel = player.physicsImpostor.getLinearVelocity();
 		player.physicsImpostor.setLinearVelocity(vel.scale(.95));
 
 		plr.x = player.position.x;//update coors
@@ -360,13 +359,13 @@ function run(){
 						
 		
 		//finds camera stuff
-		var forward = camera.getFrontPosition(1).subtract(camera.position);
+		let forward = camera.getFrontPosition(1).subtract(camera.position);
 		forward.y = 0;
 		forward = forward.normalize().scale(0.7);
 
-		var backward = BABYLON.Vector3.TransformCoordinates(forward, BABYLON.Matrix.RotationY(Math.PI));
-		var left = BABYLON.Vector3.TransformCoordinates(forward, BABYLON.Matrix.RotationY((3 * Math.PI) / 2));
-		var right = BABYLON.Vector3.TransformCoordinates(forward, BABYLON.Matrix.RotationY(Math.PI / 2));
+		let backward = BABYLON.Vector3.TransformCoordinates(forward, BABYLON.Matrix.RotationY(Math.PI));
+		let left = BABYLON.Vector3.TransformCoordinates(forward, BABYLON.Matrix.RotationY((3 * Math.PI) / 2));
+		let right = BABYLON.Vector3.TransformCoordinates(forward, BABYLON.Matrix.RotationY(Math.PI / 2));
 		
 		//key movements
 		if (keys.w) { 
@@ -385,16 +384,16 @@ function run(){
 		
 		
 		//raycast for collisions
-		var origin = player.getAbsolutePosition().clone();
-		var ray = new BABYLON.Ray(origin, new BABYLON.Vector3(0, -1, 0), 0.8); // reach just below feet
-		var hit = scene.pickWithRay(ray, function(mesh) {
+		let origin = player.getAbsolutePosition().clone();
+		let ray = new BABYLON.Ray(origin, new BABYLON.Vector3(0, -1, 0), 0.8); // reach just below feet
+		let hit = scene.pickWithRay(ray, function(mesh) {
 			return mesh.isPickable && mesh !== player;
 		});
 		
 		//can he jump
 		canJump = !!(hit && hit.hit);
 		
-		if (keys[' '] && canJump){
+		if (e.code === "Space" && canJump){
 			player.applyImpulse(new BABYLON.Vector3(0, 20, 0), player.getAbsolutePosition());
 		}
 		
